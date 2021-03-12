@@ -67,25 +67,21 @@ def ratio_and_rotation(rect):
 top=tk.Tk()
 top.geometry('900x700')
 top.title('Number Plate Recognition')
-# top.wm_iconbitmap('/home/shivam/Dataflair/Keras Projects_CIFAR/GUI/logo.ico')
-top.iconphoto(True, PhotoImage(file="/home/shivam/Dataflair/Keras Projects_CIFAR/GUI/logo.png"))
-img = ImageTk.PhotoImage(Image.open("logo.png"))
+
+top.iconphoto(True, PhotoImage(file="@/home/user/image.jpeg"))
+img = ImageTk.PhotoImage(Image.open("image.jpeg"))
 top.configure(background='#CDCDCD')
 label=Label(top,background='#CDCDCD', font=('arial',35,'bold'))
-# label.grid(row=0,column=1)
+
 sign_image = Label(top,bd=10)
 plate_image=Label(top,bd=10)
 def classify(file_path):
 
-    #######################################################
+
 
     res_text=[0]
     res_img=[0]
     img = cv2.imread(file_path)
-    # cv2.imshow("input",img)
-
-    # if cv2.waitKey(0) & 0xff == ord('q'):
-    #     pass
     img2 = cv2.GaussianBlur(img, (3,3), 0)
     img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
 
@@ -108,9 +104,6 @@ def classify(file_path):
             x,y,w,h = cv2.boundingRect(cnt)
             plate_img = img[y:y+h,x:x+w]
             print("Number  identified number plate...")
-            # cv2.imshow("num plate image",plate_img)
-            # if cv2.waitKey(0) & 0xff == ord('q'):
-            #     pass
             res_img[0]=plate_img
             cv2.imwrite("result.png",plate_img)
             if(isMaxWhite(plate_img)):
@@ -125,9 +118,6 @@ def classify(file_path):
                     res_text[0]=text
                     if text:
                         break
-                    # print("Number  Detected Plate Text : ",text)
-
-    #######################################################
     label.configure(foreground='#011638', text=res_text[0]) 
     # plate_img.configure()
     uploaded=Image.open("result.png")
@@ -157,11 +147,9 @@ upload=Button(top,text="Upload an image",command=upload_image,padx=10,pady=5)
 upload.configure(background='#364156', foreground='white',font=('arial',15,'bold'))
 upload.pack()
 upload.place(x=210,y=550)
-# sign_image.pack(side=BOTTOM,expand=True)
 sign_image.pack()
 sign_image.place(x=70,y=200)
 
-# label.pack(side=BOTTOM,expand=True)
 label.pack()
 label.place(x=500,y=220)
 heading = Label(top,image=img)
